@@ -9,20 +9,24 @@ from algorithm.WCAImprove import wca_final
 
 if __name__ == '__main__':
     uavnum = 100
-    n_max = 25
+    n_max = 20
     cluster_result, all_uav_number_packet = sc_final(uavnum, n_max)
     print(len(cluster_result))
-    cluster_result, all_uav_number_packet = kmeans_final(uavnum, n_max)
+    # cluster_result, all_uav_number_packet = agglomerativeclustering_final(uavnum, n_max)
+    # print(len(cluster_result))
+    cluster_result, all_uav_number_packet = gmm_final(uavnum, n_max)
     print(len(cluster_result))
     cluster_result, all_uav_number_packet = wca_final(uavnum, n_max)
     print(len(cluster_result))
     cluster_result, all_uav_number_packet = leach_final(uavnum, n_max)
     print(len(cluster_result))
+    # cluster_result, all_uav_number_packet = kmeans_final(uavnum, n_max)
+    # print(len(cluster_result))
     # cluster_result, all_uav_number_packet = affinitypropagation_final(uavnum, n_max)
     # print(len(cluster_result))
     # cluster_result, all_uav_number_packet = meanshift_final(uavnum, n_max)
     # print(len(cluster_result))
-    cluster_result, all_uav_number_packet = agglomerativeclustering_final(uavnum, n_max)
-    print(len(cluster_result))
-    cluster_result, all_uav_number_packet = gmm_final(uavnum, n_max)
-    print(len(cluster_result))
+    # cluster_result, all_uav_number_packet = agglomerativeclustering_final(uavnum, n_max)
+    # print(len(cluster_result))
+    # cluster_result, all_uav_number_packet = gmm_final(uavnum, n_max)
+    # print(len(cluster_result))

@@ -268,4 +268,3 @@ if __name__ == '__main__':
     print(adj)
     a = np.sum(np.array(adj), axis=1)
     print()
-

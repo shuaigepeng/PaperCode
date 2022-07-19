@@ -135,7 +135,7 @@ def select_cluster_head(cluster_result, net_args):
         min_speed = 100
         for i in range(len(cluster)):
             if len(cluster[i].neighbor) == len(cluster)-1:
-                speed = (sum([v ** 2 for v in cluster[i].current_speed])) ** 0.5
+                speed = (sum([v ** 2 for v in (cluster[i].current_speed-cluster[i].latter_speed)])) ** 0.5
                 if speed < min_speed:
                     min_speed = speed
                     cluster_number_packet = sum(real_weight_matrix[i])

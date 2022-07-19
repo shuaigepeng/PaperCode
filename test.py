@@ -1,8 +1,17 @@
-def demo_func(x):
-    x1, x2, x3 = x
-    return x1 ** 2 + (x2 - 0.05) ** 2 + x3 ** 2
-from sko.PSO import PSO
+from algorithm.GmmImprove import gmm_final
+from algorithm.LeachImprove import leach_final
+from algorithm.SCImprove import sc_final
+from algorithm.WCAImprove import wca_final
 
-pso = PSO(func=demo_func, dim=3, pop=40, max_iter=150, lb=[0, -1, 0.5], ub=[1, 1, 1], w=0.8, c1=0.5, c2=0.5)
-pso.run()
-print('best_x is ', pso.gbest_x, 'best_y is', pso.gbest_y)
+uavnum = 100
+n_max = 15
+cluster_result, all_uav_number_packet = sc_final(uavnum, n_max)
+print(len(cluster_result))
+# cluster_result, all_uav_number_packet = agglomerativeclustering_final(uavnum, n_max)
+# print(len(cluster_result))
+cluster_result, all_uav_number_packet = gmm_final(uavnum, n_max)
+print(len(cluster_result))
+cluster_result, all_uav_number_packet = wca_final(uavnum, n_max)
+print(len(cluster_result))
+cluster_result, all_uav_number_packet = leach_final(uavnum, n_max)
+print(len(cluster_result))

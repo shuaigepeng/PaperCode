@@ -50,3 +50,5 @@ class UAV:
             self.state = "CH"
         else:
             self.state = "CM"
+
+            

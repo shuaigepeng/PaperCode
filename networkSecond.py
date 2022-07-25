@@ -4,13 +4,13 @@ from algorithm.GmmImprove import gmm_final_new, gmm_final
 from algorithm.LeachImprove import leach_final_new, leach_final
 from algorithm.SCImprove import sc_final, sc_final_new
 from algorithm.WCAImprove import wca_final_new, wca_final
-from network import set_network_param, generate_uav, get_adj_matrix, cal_number_packet
+from network import set_network_param, generate_uav, get_adj_matrix, cal_number_packet, cal_SINR, db_to_ratio
 
 
 def get_next_position(cluster_result, net_args):
     for result in cluster_result:
         for uav in result:
-            uav.current_speed += uav.current_speed * net_args.slot
+            uav.current_position += uav.current_speed * net_args.slot
     return cluster_result
 
 
@@ -38,14 +38,18 @@ def change_cluster(cluster_result, outlier_list, net_args):
     outlier_list_copy = copy.deepcopy(outlier_list)
     cluster_result_copy = copy.deepcopy(cluster_result)
     cluster_result_line = [uav for result in cluster_result_copy for uav in result]
+
+    gamma = db_to_ratio(net_args.gamma)  # threshold 0dbm
     for outlier in outlier_list:
         maxPacket = 0
         # 投敌过程
         for uav in cluster_result_line:
-            packet = cal_number_packet(outlier, uav, net_args)
-            if packet > maxPacket:
-                outlier.cluster_id = uav.cluster_id
-                outlier.cluster_head_id = uav.cluster_head_id
+            sinr = cal_SINR(outlier, uav, net_args)
+            if sinr > gamma:
+                packet = cal_number_packet(outlier, uav, net_args)
+                if packet > maxPacket:
+                    outlier.cluster_id = uav.cluster_id
+                    outlier.cluster_head_id = uav.cluster_head_id
         # 添加孤立点，簇号就是行号
         cluster_result[outlier.cluster_id].append(outlier)
         outlier_list_copy.remove(outlier)
